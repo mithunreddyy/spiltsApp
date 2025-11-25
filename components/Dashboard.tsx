@@ -13,7 +13,7 @@ import {
   validateMemberName,
 } from "@/lib/utils";
 import { Member } from "@/types";
-import { Plus, Trash2, TrendingUp, Users } from "lucide-react";
+import { ArrowRight, Plus, Trash2, Users } from "lucide-react";
 import React, { useState } from "react";
 
 interface DashboardProps {
@@ -32,17 +32,14 @@ const Dashboard: React.FC<DashboardProps> = ({ onSelectGroup }) => {
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
   const handleCreateGroup = async () => {
-    // Reset errors
     setErrors({});
 
-    // Validate group name
     const nameError = validateGroupName(groupName);
     if (nameError) {
       setErrors((prev) => ({ ...prev, groupName: nameError }));
       return;
     }
 
-    // Validate members
     const validMembers: Member[] = [];
     const memberErrors: Record<string, string> = {};
 
@@ -74,7 +71,6 @@ const Dashboard: React.FC<DashboardProps> = ({ onSelectGroup }) => {
       return;
     }
 
-    // Create group
     const success = await addGroup({
       name: groupName.trim(),
       description: groupDescription.trim(),
@@ -115,7 +111,6 @@ const Dashboard: React.FC<DashboardProps> = ({ onSelectGroup }) => {
     const updated = [...memberNames];
     updated[index] = value;
     setMemberNames(updated);
-    // Clear error for this field
     if (errors[`member-${index}`]) {
       const newErrors = { ...errors };
       delete newErrors[`member-${index}`];
@@ -126,7 +121,6 @@ const Dashboard: React.FC<DashboardProps> = ({ onSelectGroup }) => {
   const removeMemberField = (index: number) => {
     if (memberNames.length > 1) {
       setMemberNames(memberNames.filter((_, i) => i !== index));
-      // Clear error for this field
       if (errors[`member-${index}`]) {
         const newErrors = { ...errors };
         delete newErrors[`member-${index}`];
@@ -136,32 +130,30 @@ const Dashboard: React.FC<DashboardProps> = ({ onSelectGroup }) => {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black transition-colors duration-300">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-8 max-w-6xl">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 pb-6 border-b-2 border-black dark:border-white">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <div>
-            <h1 className="text-4xl sm:text-5xl font-bold text-black dark:text-white mb-2">
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
               Money Splits
             </h1>
-            <p className="text-gray-600 dark:text-gray-400">
-              Track expenses with friends
-            </p>
+            <p className="text-gray-600">Track expenses with friends</p>
           </div>
           <Button onClick={() => setShowCreateModal(true)} disabled={isLoading}>
-            <Plus className="w-5 h-5 inline mr-2" />
+            <Plus className="w-4 h-4 mr-2" />
             New Group
           </Button>
         </div>
 
         {groups.length === 0 ? (
-          <div className="text-center py-20">
-            <div className="border-2 border-black dark:border-white p-12 max-w-md mx-auto">
-              <Users className="w-16 h-16 mx-auto mb-4 text-black dark:text-white" />
-              <h2 className="text-2xl font-semibold mb-2 text-black dark:text-white">
+          <div className="text-center py-16">
+            <div className="max-w-md mx-auto">
+              <Users className="w-16 h-16 mx-auto mb-4 text-gray-400" />
+              <h2 className="text-xl font-semibold mb-2 text-gray-900">
                 No groups yet
               </h2>
-              <p className="text-gray-600 dark:text-gray-400 mb-6">
+              <p className="text-gray-600 mb-6">
                 Create your first group to start tracking expenses
               </p>
               <Button onClick={() => setShowCreateModal(true)}>
@@ -183,56 +175,59 @@ const Dashboard: React.FC<DashboardProps> = ({ onSelectGroup }) => {
               return (
                 <div
                   key={group.id}
-                  className="border-2 border-black dark:border-white hover:bg-gray-50 dark:hover:bg-gray-900 transition-all group relative"
+                  className="minimal-card p-6 cursor-pointer group"
+                  onClick={() => onSelectGroup(group.id)}
                 >
-                  {/* Delete button */}
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setDeleteConfirmId(group.id);
-                    }}
-                    className="absolute top-4 right-4 p-2 opacity-0 group-hover:opacity-100 transition-opacity bg-white dark:bg-black border-2 border-black dark:border-white"
-                    title="Delete group"
-                  >
-                    <Trash2 className="w-4 h-4 text-black dark:text-white" />
-                  </button>
-
-                  <div
-                    onClick={() => onSelectGroup(group.id)}
-                    className="cursor-pointer p-6"
-                  >
-                    <h3 className="text-xl font-bold mb-2 text-black dark:text-white truncate pr-10">
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className="font-semibold text-gray-900 group-hover:text-black transition-colors">
                       {group.name}
                     </h3>
-                    {group.description && (
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
-                        {group.description}
-                      </p>
-                    )}
-                    <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-4">
-                      <span className="flex items-center gap-1">
-                        <Users className="w-4 h-4" />
-                        {activeMembers.length}{" "}
-                        {activeMembers.length === 1 ? "member" : "members"}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <TrendingUp className="w-4 h-4" />
-                        {formatCurrency(totalSpent)}
-                      </span>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setDeleteConfirmId(group.id);
+                      }}
+                      className="opacity-0 group-hover:opacity-100 transition-opacity p-1 text-gray-400 hover:text-red-600"
+                      title="Delete group"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  {group.description && (
+                    <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                      {group.description}
+                    </p>
+                  )}
+
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="flex items-center gap-1">
+                      <Users className="w-4 h-4" />
+                      {activeMembers.length} member
+                      {activeMembers.length === 1 ? "" : "s"}
+                    </span>
+                    <span>{formatCurrency(totalSpent)}</span>
+                  </div>
+
+                  {Math.abs(myBalance) > 0.01 && (
+                    <div
+                      className={`text-sm font-medium px-3 py-1.5 rounded ${
+                        myBalance > 0
+                          ? "bg-green-50 text-green-700 border border-green-200"
+                          : "bg-red-50 text-red-700 border border-red-200"
+                      }`}
+                    >
+                      {myBalance > 0
+                        ? `You get ${formatCurrency(myBalance)}`
+                        : `You owe ${formatCurrency(Math.abs(myBalance))}`}
                     </div>
-                    {Math.abs(myBalance) > 0.01 && (
-                      <div
-                        className={`text-sm font-semibold px-3 py-2 border-2 ${
-                          myBalance > 0
-                            ? "bg-white dark:bg-black border-black dark:border-white text-black dark:text-white"
-                            : "bg-black dark:bg-white border-black dark:border-white text-white dark:text-black"
-                        }`}
-                      >
-                        {myBalance > 0
-                          ? `You should receive ${formatCurrency(myBalance)}`
-                          : `You owe ${formatCurrency(Math.abs(myBalance))}`}
-                      </div>
-                    )}
+                  )}
+
+                  <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+                    <span className="text-sm text-gray-500">
+                      {group.expenses.length} expenses
+                    </span>
+                    <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors" />
                   </div>
                 </div>
               );
@@ -249,89 +244,93 @@ const Dashboard: React.FC<DashboardProps> = ({ onSelectGroup }) => {
           }}
           title="Create New Group"
         >
-          <Input
-            label="Group Name *"
-            value={groupName}
-            onChange={(e) => {
-              setGroupName(e.target.value);
-              if (errors.groupName) {
-                setErrors((prev) => ({ ...prev, groupName: "" }));
-              }
-            }}
-            error={errors.groupName}
-            placeholder="e.g., Goa Trip, Flatmates"
-            autoFocus
-          />
-          <Input
-            label="Description (Optional)"
-            value={groupDescription}
-            onChange={(e) => setGroupDescription(e.target.value)}
-            placeholder="e.g., Summer vacation expenses"
-          />
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-              Members *
-            </label>
-            <div className="space-y-2 max-h-60 overflow-y-auto">
-              {memberNames.map((name, index) => (
-                <div key={index}>
-                  <div className="flex gap-2">
-                    <input
-                      value={name}
-                      onChange={(e) => updateMemberName(index, e.target.value)}
-                      placeholder={`Member ${index + 1} name`}
-                      className="flex-1 px-4 py-3 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm border border-gray-300/50 dark:border-gray-600/50 rounded-xl focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white"
-                    />
-                    {memberNames.length > 1 && (
-                      <button
-                        onClick={() => removeMemberField(index)}
-                        className="px-3 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-colors"
-                        type="button"
-                      >
-                        Remove
-                      </button>
+          <div className="space-y-4">
+            <Input
+              label="Group Name"
+              value={groupName}
+              onChange={(e) => {
+                setGroupName(e.target.value);
+                if (errors.groupName) {
+                  setErrors((prev) => ({ ...prev, groupName: "" }));
+                }
+              }}
+              error={errors.groupName}
+              placeholder="e.g., Goa Trip, Flatmates"
+              autoFocus
+            />
+            <Input
+              label="Description (Optional)"
+              value={groupDescription}
+              onChange={(e) => setGroupDescription(e.target.value)}
+              placeholder="e.g., Summer vacation expenses"
+            />
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Members
+              </label>
+              <div className="space-y-2 max-h-48 overflow-y-auto">
+                {memberNames.map((name, index) => (
+                  <div key={index}>
+                    <div className="flex gap-2">
+                      <input
+                        value={name}
+                        onChange={(e) =>
+                          updateMemberName(index, e.target.value)
+                        }
+                        placeholder={`Member ${index + 1} name`}
+                        className="minimal-input flex-1"
+                      />
+                      {memberNames.length > 1 && (
+                        <button
+                          onClick={() => removeMemberField(index)}
+                          className="px-3 text-red-600 hover:bg-red-50 rounded-md transition-colors text-sm"
+                          type="button"
+                        >
+                          Remove
+                        </button>
+                      )}
+                    </div>
+                    {errors[`member-${index}`] && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors[`member-${index}`]}
+                      </p>
                     )}
                   </div>
-                  {errors[`member-${index}`] && (
-                    <p className="mt-1 text-sm text-red-500">
-                      {errors[`member-${index}`]}
-                    </p>
-                  )}
-                </div>
-              ))}
+                ))}
+              </div>
+              {errors.members && (
+                <p className="mt-2 text-sm text-red-600">{errors.members}</p>
+              )}
+              <Button
+                variant="secondary"
+                onClick={addMemberField}
+                className="w-full mt-2"
+                type="button"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Add Another Member
+              </Button>
             </div>
-            {errors.members && (
-              <p className="mt-2 text-sm text-red-500">{errors.members}</p>
-            )}
-            <Button
-              variant="secondary"
-              onClick={addMemberField}
-              className="w-full mt-2"
-              type="button"
-            >
-              <Plus className="w-4 h-4 inline mr-2" />
-              Add Another Member
-            </Button>
-          </div>
-          <div className="flex gap-3">
-            <Button
-              variant="secondary"
-              onClick={() => {
-                setShowCreateModal(false);
-                setErrors({});
-              }}
-              className="flex-1"
-              disabled={isLoading}
-            >
-              Cancel
-            </Button>
-            <Button
-              onClick={handleCreateGroup}
-              className="flex-1"
-              disabled={isLoading}
-            >
-              {isLoading ? "Creating..." : "Create Group"}
-            </Button>
+            <div className="flex gap-3 pt-2">
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  setShowCreateModal(false);
+                  setErrors({});
+                }}
+                className="flex-1"
+                disabled={isLoading}
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleCreateGroup}
+                className="flex-1"
+                disabled={isLoading}
+              >
+                {isLoading ? "Creating..." : "Create Group"}
+              </Button>
+            </div>
           </div>
         </Modal>
 
@@ -342,7 +341,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onSelectGroup }) => {
             onClose={() => setDeleteConfirmId(null)}
             title="Delete Group?"
           >
-            <p className="text-gray-700 dark:text-gray-300 mb-6">
+            <p className="text-gray-700 mb-6">
               Are you sure you want to delete this group? This action cannot be
               undone and all expenses will be lost.
             </p>
@@ -355,14 +354,14 @@ const Dashboard: React.FC<DashboardProps> = ({ onSelectGroup }) => {
                 Cancel
               </Button>
               <Button
-                variant="danger"
+                variant="primary"
                 onClick={() => {
                   const group = groups.find((g) => g.id === deleteConfirmId);
                   if (group) {
                     handleDeleteGroup(deleteConfirmId, group.name);
                   }
                 }}
-                className="flex-1"
+                className="flex-1 bg-red-600 hover:bg-red-700 focus:ring-red-500"
                 disabled={isLoading}
               >
                 Delete

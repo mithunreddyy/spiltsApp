@@ -14,7 +14,17 @@ import {
   formatDateTime,
 } from "@/lib/utils";
 import { CATEGORIES } from "@/types";
-import { ArrowLeft, FileDown, History, Plus, Search } from "lucide-react";
+import {
+  ArrowLeft,
+  BarChart3,
+  Download,
+  FileText,
+  History,
+  Plus,
+  Search,
+  Share2,
+  UserPlus,
+} from "lucide-react";
 import React, { useState } from "react";
 
 interface GroupDetailProps {
@@ -31,7 +41,6 @@ const GroupDetail: React.FC<GroupDetailProps> = ({ groupId, onBack }) => {
   >("overview");
   const [showExpenseModal, setShowExpenseModal] = useState(false);
   const [showMemberModal, setShowMemberModal] = useState(false);
-  const [showExportMenu, setShowExportMenu] = useState(false);
   const [newMemberName, setNewMemberName] = useState("");
 
   // Expense form state
@@ -49,7 +58,9 @@ const GroupDetail: React.FC<GroupDetailProps> = ({ groupId, onBack }) => {
   if (!group) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-600 dark:text-gray-400">Group not found</p>
+        <div className="glass-panel p-8 text-center">
+          <p className="text-gray-600 dark:text-gray-400">Group not found</p>
+        </div>
       </div>
     );
   }
@@ -85,7 +96,6 @@ const GroupDetail: React.FC<GroupDetailProps> = ({ groupId, onBack }) => {
       date,
     });
 
-    // Reset form
     setShowExpenseModal(false);
     setDescription("");
     setAmount("");
@@ -129,189 +139,218 @@ const GroupDetail: React.FC<GroupDetailProps> = ({ groupId, onBack }) => {
   const totalSpent = group.expenses.reduce((sum, e) => sum + e.amount, 0);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-purple-900 dark:to-gray-900 transition-colors duration-300">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-        {/* Back Button */}
-        <button
-          onClick={onBack}
-          className="mb-6 flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Dashboard
-        </button>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900/20 transition-all duration-500">
+      {/* Animated Background */}
+      <div className="fixed inset-0 bg-grid-white dark:bg-grid-dark opacity-10" />
+      <div className="fixed top-1/3 right-1/4 w-80 h-80 bg-green-200/20 dark:bg-green-500/10 rounded-full blur-3xl animate-float" />
 
-        {/* Header Card */}
-        <div className="glass rounded-2xl p-6 mb-6 shadow-xl">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
-            <div className="flex-1">
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-2">
-                {group.name}
-              </h1>
-              {group.description && (
-                <p className="text-gray-600 dark:text-gray-400">
-                  {group.description}
-                </p>
-              )}
+      <div className="container mx-auto px-4 py-8 max-w-6xl relative z-10">
+        {/* Header */}
+        <div className="glass-panel p-8 mb-8 animate-slide-up">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+            <div className="flex items-center gap-4 flex-1">
+              <button
+                onClick={onBack}
+                className="glass-button p-3 rounded-xl hover:scale-105 transition-all duration-300"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+              <div className="flex-1">
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                  {group.name}
+                </h1>
+                {group.description && (
+                  <p className="text-gray-600 dark:text-gray-300">
+                    {group.description}
+                  </p>
+                )}
+              </div>
             </div>
-            <div className="text-right">
-              <div className="text-sm text-gray-600 dark:text-gray-400">
-                Total Spent
+
+            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+              <div className="glass-card px-6 py-3 text-center sm:text-right">
+                <div className="text-sm text-gray-600 dark:text-gray-300">
+                  Total Spent
+                </div>
+                <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                  {formatCurrency(totalSpent)}
+                </div>
               </div>
-              <div className="text-3xl font-bold text-gray-800 dark:text-white">
-                {formatCurrency(totalSpent)}
-              </div>
+              <Button
+                onClick={() => setShowExpenseModal(true)}
+                className="whitespace-nowrap"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Add Expense
+              </Button>
             </div>
           </div>
 
           {/* Members */}
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="flex flex-wrap gap-3 mt-6">
             {activeMembers.map((member) => (
               <span
                 key={member.id}
-                className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full text-sm font-medium"
+                className="glass-card px-4 py-2 text-gray-700 dark:text-gray-200 rounded-xl text-sm font-medium backdrop-blur-sm"
               >
                 {member.name}
               </span>
             ))}
             <button
               onClick={() => setShowMemberModal(true)}
-              className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full text-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors font-medium"
+              className="glass-button px-4 py-2 text-gray-600 dark:text-gray-300 rounded-xl text-sm font-medium flex items-center gap-2 hover:scale-105 transition-all duration-300"
             >
-              <Plus className="w-3 h-3 inline mr-1" /> Add Member
+              <UserPlus className="w-4 h-4" />
+              Add Member
             </button>
           </div>
+        </div>
 
-          {/* Tabs */}
-          <div className="flex gap-2 border-b border-gray-200 dark:border-gray-700">
-            {(["overview", "expenses", "history"] as const).map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`px-4 py-2 font-medium capitalize transition-colors ${
-                  activeTab === tab
-                    ? "text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400"
-                    : "text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
+        {/* Tabs */}
+        <div className="flex gap-1 glass-card p-2 rounded-2xl mb-8 w-fit mx-auto">
+          {(["overview", "expenses", "history"] as const).map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-6 py-3 font-medium capitalize transition-all duration-300 rounded-xl flex items-center gap-2 ${
+                activeTab === tab
+                  ? "bg-white/20 dark:bg-black/20 text-gray-900 dark:text-white shadow-lg"
+                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+              }`}
+            >
+              {tab === "overview" && <BarChart3 className="w-4 h-4" />}
+              {tab === "expenses" && <FileText className="w-4 h-4" />}
+              {tab === "history" && <History className="w-4 h-4" />}
+              {tab}
+            </button>
+          ))}
         </div>
 
         {/* Overview Tab */}
         {activeTab === "overview" && (
-          <div className="space-y-6 animate-slide-up">
-            <div className="glass rounded-2xl p-6 shadow-xl">
-              <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-fade-in">
+            {/* Balances */}
+            <div className="glass-panel p-6">
+              <h2 className="text-xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3">
+                <BarChart3 className="w-6 h-6 text-blue-500" />
                 Member Balances
               </h2>
-              <div className="space-y-3">
-                {balances.map((balance) => (
+              <div className="space-y-4">
+                {balances.map((balance, index) => (
                   <div
                     key={balance.memberId}
-                    className="flex justify-between items-center p-4 bg-white/50 dark:bg-gray-700/50 rounded-xl"
+                    className="glass-card p-4 rounded-xl animate-slide-up"
+                    style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <span className="font-medium text-gray-800 dark:text-white">
-                      {balance.memberName}
-                    </span>
-                    <span
-                      className={`font-bold text-lg ${
-                        balance.balance > 0.01
-                          ? "text-green-600 dark:text-green-400"
-                          : balance.balance < -0.01
-                            ? "text-red-600 dark:text-red-400"
-                            : "text-gray-600 dark:text-gray-400"
-                      }`}
-                    >
-                      {balance.balance > 0 ? "+" : ""}
-                      {formatCurrency(balance.balance)}
-                    </span>
+                    <div className="flex justify-between items-center">
+                      <span className="font-semibold text-gray-900 dark:text-white">
+                        {balance.memberName}
+                      </span>
+                      <span
+                        className={`font-bold text-lg ${
+                          balance.balance > 0.01
+                            ? "text-green-600 dark:text-green-400"
+                            : balance.balance < -0.01
+                              ? "text-red-600 dark:text-red-400"
+                              : "text-gray-600 dark:text-gray-400"
+                        }`}
+                      >
+                        {balance.balance > 0 ? "+" : ""}
+                        {formatCurrency(balance.balance)}
+                      </span>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {settlements.length > 0 && (
-              <div className="glass rounded-2xl p-6 shadow-xl">
-                <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">
-                  Settlement Suggestions
-                </h2>
-                <div className="space-y-3">
-                  {settlements.map((settlement, index) => (
+            {/* Settlements */}
+            <div className="glass-panel p-6">
+              <h2 className="text-xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3">
+                <Share2 className="w-6 h-6 text-orange-500" />
+                Settlement Suggestions
+              </h2>
+              <div className="space-y-4">
+                {settlements.length > 0 ? (
+                  settlements.map((settlement, index) => (
                     <div
                       key={index}
-                      className="p-4 bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 rounded-xl border border-orange-200 dark:border-orange-800"
+                      className="glass-card p-4 rounded-xl border border-orange-500/20 bg-orange-500/5 animate-slide-up"
+                      style={{ animationDelay: `${index * 150}ms` }}
                     >
-                      <span className="font-semibold text-gray-800 dark:text-white">
-                        {settlement.from}
-                      </span>
-                      <span className="text-gray-600 dark:text-gray-400">
-                        {" "}
-                        owes{" "}
-                      </span>
-                      <span className="font-semibold text-gray-800 dark:text-white">
-                        {settlement.to}
-                      </span>
-                      <span className="font-bold text-red-600 dark:text-red-400 ml-2">
-                        {formatCurrency(settlement.amount)}
-                      </span>
+                      <div className="text-center">
+                        <span className="font-semibold text-gray-900 dark:text-white">
+                          {settlement.from}
+                        </span>
+                        <span className="text-gray-600 dark:text-gray-400 mx-2">
+                          owes
+                        </span>
+                        <span className="font-semibold text-gray-900 dark:text-white">
+                          {settlement.to}
+                        </span>
+                        <div className="font-bold text-orange-600 dark:text-orange-400 text-lg mt-2">
+                          {formatCurrency(settlement.amount)}
+                        </div>
+                      </div>
                     </div>
-                  ))}
-                </div>
+                  ))
+                ) : (
+                  <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                    No settlements needed. Everything is balanced! 🎉
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
         )}
 
         {/* Expenses Tab */}
         {activeTab === "expenses" && (
-          <div className="animate-slide-up">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-              <div className="flex flex-col sm:flex-row gap-3 flex-1 w-full">
-                <div className="relative flex-1">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                  <input
-                    type="text"
-                    placeholder="Search expenses..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm border border-gray-300/50 dark:border-gray-600/50 rounded-xl focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white"
-                  />
+          <div className="animate-fade-in">
+            <div className="glass-panel p-6 mb-6">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex-1 flex gap-4">
+                  <div className="flex-1 relative">
+                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <input
+                      type="text"
+                      placeholder="Search expenses..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="glass-input w-full pl-12 pr-4 py-3 rounded-xl"
+                    />
+                  </div>
+                  <select
+                    value={categoryFilter}
+                    onChange={(e) => setCategoryFilter(e.target.value)}
+                    className="glass-input px-4 py-3 rounded-xl min-w-[140px]"
+                  >
+                    <option>All</option>
+                    {CATEGORIES.map((cat) => (
+                      <option key={cat}>{cat}</option>
+                    ))}
+                  </select>
                 </div>
-                <select
-                  value={categoryFilter}
-                  onChange={(e) => setCategoryFilter(e.target.value)}
-                  className="px-4 py-3 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm border border-gray-300/50 dark:border-gray-600/50 rounded-xl focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white"
-                >
-                  <option>All</option>
-                  {CATEGORIES.map((cat) => (
-                    <option key={cat}>{cat}</option>
-                  ))}
-                </select>
               </div>
-              <Button onClick={() => setShowExpenseModal(true)}>
-                <Plus className="w-5 h-5 inline mr-2" />
-                Add Expense
-              </Button>
             </div>
 
             {filteredExpenses.length === 0 ? (
-              <div className="text-center py-12 glass rounded-2xl">
-                <p className="text-gray-600 dark:text-gray-400">
+              <div className="glass-panel p-12 text-center">
+                <FileText className="w-16 h-16 mx-auto mb-4 text-gray-400" />
+                <p className="text-gray-600 dark:text-gray-400 text-lg">
                   {searchQuery || categoryFilter !== "All"
                     ? "No expenses match your filters"
                     : "No expenses yet. Add your first expense!"}
                 </p>
               </div>
             ) : (
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {filteredExpenses
                   .sort(
                     (a, b) =>
                       new Date(b.date).getTime() - new Date(a.date).getTime()
                   )
-                  .map((expense) => {
+                  .map((expense, index) => {
                     const payer = group.members.find(
                       (m) => m.id === expense.paidBy
                     );
@@ -321,30 +360,38 @@ const GroupDetail: React.FC<GroupDetailProps> = ({ groupId, onBack }) => {
                     return (
                       <div
                         key={expense.id}
-                        className="glass rounded-2xl p-6 hover:shadow-xl transition-all"
+                        className="glass-panel p-6 hover:scale-105 transition-all duration-500 animate-slide-up"
+                        style={{ animationDelay: `${index * 50}ms` }}
                       >
-                        <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-3">
+                        <div className="flex flex-col lg:flex-row justify-between items-start gap-4 mb-4">
                           <div className="flex-1">
-                            <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-1">
+                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                               {expense.description}
                             </h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">
-                              Paid by {payer?.name} • {formatDate(expense.date)}
+                            <p className="text-gray-600 dark:text-gray-400">
+                              Paid by{" "}
+                              <span className="font-semibold text-gray-700 dark:text-gray-300">
+                                {payer?.name}
+                              </span>{" "}
+                              • {formatDate(expense.date)}
                             </p>
                           </div>
                           <div className="text-right">
-                            <div className="text-2xl font-bold text-gray-800 dark:text-white">
+                            <div className="text-2xl font-bold text-gray-900 dark:text-white">
                               {formatCurrency(expense.amount)}
                             </div>
-                            <span className="inline-block px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 rounded text-xs font-medium mt-1">
+                            <span className="inline-block px-3 py-1 glass-card text-gray-700 dark:text-gray-200 rounded-full text-sm font-medium mt-2">
                               {expense.category}
                             </span>
                           </div>
                         </div>
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                          <div className="text-sm text-gray-600 dark:text-gray-400">
+                          <div className="text-gray-600 dark:text-gray-400">
                             Split between {expense.participants.length}{" "}
-                            member(s) • {formatCurrency(splitAmount)} each
+                            {expense.participants.length === 1
+                              ? "person"
+                              : "people"}{" "}
+                            • {formatCurrency(splitAmount)} each
                           </div>
                           <button
                             onClick={() => {
@@ -356,7 +403,7 @@ const GroupDetail: React.FC<GroupDetailProps> = ({ groupId, onBack }) => {
                                 deleteExpense(groupId, expense.id);
                               }
                             }}
-                            className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 text-sm font-medium transition-colors"
+                            className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 transition-colors duration-300 font-medium"
                           >
                             Delete
                           </button>
@@ -371,57 +418,45 @@ const GroupDetail: React.FC<GroupDetailProps> = ({ groupId, onBack }) => {
 
         {/* History Tab */}
         {activeTab === "history" && (
-          <div className="glass rounded-2xl p-6 shadow-xl animate-slide-up">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
-                <History className="w-5 h-5" />
+          <div className="glass-panel p-6 animate-fade-in">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
+                <History className="w-6 h-6 text-purple-500" />
                 Activity Log
               </h2>
-              <div className="relative">
-                <button
-                  onClick={() => setShowExportMenu(!showExportMenu)}
-                  className="px-4 py-2 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm border border-gray-300/50 dark:border-gray-600/50 rounded-xl hover:bg-white/80 dark:hover:bg-gray-700/80 transition-colors flex items-center gap-2"
+              <div className="flex gap-3">
+                <Button
+                  variant="glass"
+                  onClick={() => exportGroupAsJSON(group)}
+                  size="sm"
                 >
-                  <FileDown className="w-4 h-4" />
-                  Export
-                </button>
-                {showExportMenu && (
-                  <div className="absolute right-0 mt-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden z-10">
-                    <button
-                      onClick={() => {
-                        exportGroupAsJSON(group);
-                        setShowExportMenu(false);
-                      }}
-                      className="block w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-sm"
-                    >
-                      Export as JSON
-                    </button>
-                    <button
-                      onClick={() => {
-                        exportGroupAsCSV(group);
-                        setShowExportMenu(false);
-                      }}
-                      className="block w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-sm"
-                    >
-                      Export as CSV
-                    </button>
-                  </div>
-                )}
+                  <Download className="w-4 h-4 mr-2" />
+                  Export JSON
+                </Button>
+                <Button
+                  variant="glass"
+                  onClick={() => exportGroupAsCSV(group)}
+                  size="sm"
+                >
+                  <Download className="w-4 h-4 mr-2" />
+                  Export CSV
+                </Button>
               </div>
             </div>
-            <div className="space-y-3 max-h-[600px] overflow-y-auto scrollbar-hide">
+            <div className="space-y-3 max-h-[600px] overflow-y-auto scrollbar-thin">
               {group.history
                 .slice()
                 .reverse()
-                .map((event) => (
+                .map((event, index) => (
                   <div
                     key={event.id}
-                    className="p-4 bg-white/50 dark:bg-gray-700/50 rounded-xl"
+                    className="glass-card p-4 rounded-xl animate-slide-up"
+                    style={{ animationDelay: `${index * 30}ms` }}
                   >
-                    <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                    <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">
                       {formatDateTime(event.timestamp)}
                     </div>
-                    <div className="text-sm text-gray-800 dark:text-white">
+                    <div className="text-gray-900 dark:text-white">
                       {event.message}
                     </div>
                   </div>
@@ -434,104 +469,105 @@ const GroupDetail: React.FC<GroupDetailProps> = ({ groupId, onBack }) => {
         <Modal
           isOpen={showExpenseModal}
           onClose={() => setShowExpenseModal(false)}
-          title="Add Expense"
+          title="Add New Expense"
+          size="lg"
         >
-          <Input
-            label="Description *"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="e.g., Dinner at restaurant"
-            autoFocus
-          />
-          <Input
-            label="Amount (₹) *"
-            type="number"
-            step="0.01"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder="0.00"
-          />
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-              Paid By *
-            </label>
-            <select
-              value={paidBy}
-              onChange={(e) => setPaidBy(e.target.value)}
-              className="w-full px-4 py-3 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm border border-gray-300/50 dark:border-gray-600/50 rounded-xl focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white"
-            >
-              <option value="">Select member</option>
-              {activeMembers.map((member) => (
-                <option key={member.id} value={member.id}>
-                  {member.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="mb-4">
-            <div className="flex justify-between items-center mb-2">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Split Between *
+          <div className="space-y-6">
+            <Input
+              label="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="e.g., Dinner at restaurant"
+              autoFocus
+            />
+            <Input
+              label="Amount (₹)"
+              type="number"
+              step="0.01"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              placeholder="0.00"
+            />
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                Paid By
               </label>
-              <button
-                onClick={selectAllParticipants}
-                className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
+              <select
+                value={paidBy}
+                onChange={(e) => setPaidBy(e.target.value)}
+                className="glass-input w-full rounded-xl px-4 py-3 text-gray-900 dark:text-white"
               >
-                Select All
-              </button>
-            </div>
-            <div className="space-y-2 max-h-48 overflow-y-auto scrollbar-hide">
-              {activeMembers.map((member) => (
-                <label
-                  key={member.id}
-                  className="flex items-center p-3 bg-white/50 dark:bg-gray-700/50 rounded-lg cursor-pointer hover:bg-white/80 dark:hover:bg-gray-700/80 transition-colors"
-                >
-                  <input
-                    type="checkbox"
-                    checked={participants.includes(member.id)}
-                    onChange={() => toggleParticipant(member.id)}
-                    className="mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
-                  />
-                  <span className="text-gray-800 dark:text-white">
+                <option value="">Select member</option>
+                {activeMembers.map((member) => (
+                  <option key={member.id} value={member.id}>
                     {member.name}
-                  </span>
-                </label>
-              ))}
+                  </option>
+                ))}
+              </select>
             </div>
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-              Category
-            </label>
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value as typeof category)}
-              className="w-full px-4 py-3 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm border border-gray-300/50 dark:border-gray-600/50 rounded-xl focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white"
-            >
-              {CATEGORIES.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
-          </div>
-          <Input
-            label="Date"
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-          <div className="flex gap-3 mt-6">
-            <Button
-              variant="secondary"
-              onClick={() => setShowExpenseModal(false)}
-              className="flex-1"
-            >
-              Cancel
-            </Button>
-            <Button onClick={handleAddExpense} className="flex-1">
-              Add Expense
-            </Button>
+            <div>
+              <div className="flex justify-between items-center mb-3">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Split Between
+                </label>
+                <button
+                  onClick={selectAllParticipants}
+                  className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+                >
+                  Select All
+                </button>
+              </div>
+              <div className="space-y-2 max-h-48 overflow-y-auto scrollbar-thin">
+                {activeMembers.map((member) => (
+                  <label
+                    key={member.id}
+                    className="flex items-center p-3 glass-card rounded-xl cursor-pointer hover:bg-white/10 dark:hover:bg-black/10 transition-all duration-300"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={participants.includes(member.id)}
+                      onChange={() => toggleParticipant(member.id)}
+                      className="mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                    />
+                    <span className="text-gray-900 dark:text-white font-medium">
+                      {member.name}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                Category
+              </label>
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value as typeof category)}
+                className="glass-input w-full rounded-xl px-4 py-3 text-gray-900 dark:text-white"
+              >
+                {CATEGORIES.map((cat) => (
+                  <option key={cat}>{cat}</option>
+                ))}
+              </select>
+            </div>
+            <Input
+              label="Date"
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+            <div className="flex gap-3 pt-4">
+              <Button
+                variant="ghost"
+                onClick={() => setShowExpenseModal(false)}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+              <Button onClick={handleAddExpense} className="flex-1">
+                Add Expense
+              </Button>
+            </div>
           </div>
         </Modal>
 
@@ -539,26 +575,29 @@ const GroupDetail: React.FC<GroupDetailProps> = ({ groupId, onBack }) => {
         <Modal
           isOpen={showMemberModal}
           onClose={() => setShowMemberModal(false)}
-          title="Add Member"
+          title="Add New Member"
         >
-          <Input
-            label="Member Name *"
-            value={newMemberName}
-            onChange={(e) => setNewMemberName(e.target.value)}
-            placeholder="Enter name"
-            autoFocus
-          />
-          <div className="flex gap-3">
-            <Button
-              variant="secondary"
-              onClick={() => setShowMemberModal(false)}
-              className="flex-1"
-            >
-              Cancel
-            </Button>
-            <Button onClick={handleAddMember} className="flex-1">
-              Add Member
-            </Button>
+          <div className="space-y-6">
+            <Input
+              label="Member Name"
+              value={newMemberName}
+              onChange={(e) => setNewMemberName(e.target.value)}
+              placeholder="Enter name"
+              autoFocus
+              icon={<UserPlus className="w-4 h-4" />}
+            />
+            <div className="flex gap-3 pt-2">
+              <Button
+                variant="ghost"
+                onClick={() => setShowMemberModal(false)}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+              <Button onClick={handleAddMember} className="flex-1">
+                Add Member
+              </Button>
+            </div>
           </div>
         </Modal>
       </div>

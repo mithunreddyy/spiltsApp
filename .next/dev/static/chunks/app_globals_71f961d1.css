@@ -1,12 +1,16 @@
 /* [project]/app/globals.css [app-client] (css) */
 @config "../tailwind.config.js";
 
-@reference "tailwindcss";
-
 @layer base {
-  @apply border-border;
+  * {
+    box-sizing: border-box;
+  }
 
-  @apply bg-white dark:bg-black text-black dark:text-white;
+  html {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300;
 
   body {
     -webkit-font-smoothing: antialiased;
@@ -16,6 +20,42 @@
 }
 
 @layer utilities {
+  @apply bg-white / 10 dark:bg-black / 10 backdrop-blur-md border border-white / 20 dark:border-gray-600 / 20;
+
+  @apply glass rounded-2xl shadow-2xl shadow-black / 5 dark:shadow-black / 30;
+
+  @apply glass rounded-3xl shadow-2xl shadow-black / 10 dark:shadow-black / 40;
+
+  @apply bg-white / 5 dark:bg-black / 5 backdrop-blur-sm border border-white / 10 dark:border-gray-600 / 30 placeholder-gray-500 dark:placeholder-gray-400 focus:bg-white / 10 dark:focus:bg-black / 10 focus:border-blue-500 / 50 transition-all duration-300;
+
+  @apply bg-white / 10 dark:bg-black / 10 backdrop-blur-sm border border-white / 20 dark:border-gray-600 / 30 hover:bg-white / 20 dark:hover:bg-black / 20 hover:border-white / 30 dark:hover:border-gray-600 / 50 active:scale-95 transition-all duration-300;
+
+  @apply bg-blue-600 / 90 dark:bg-blue-500 / 90 backdrop-blur-sm border border-blue-500 / 30 text-white hover:bg-blue-700 / 90 dark:hover:bg-blue-600 / 90 hover:border-blue-400 / 50 active:scale-95 shadow-lg shadow-blue-500 / 25 dark:shadow-blue-500 / 50 transition-all duration-300;
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #9ca3af80 transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: none;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #9ca3af80;
+    border-radius: 3px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: #9ca3afb3;
+  }
+
+  @apply bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent;
+
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -29,17 +69,19 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: translateY(10px);
   }
 
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(30px);
   }
 
   to {
@@ -51,7 +93,7 @@
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(.95);
+    transform: scale(.9);
   }
 
   to {
@@ -60,16 +102,54 @@
   }
 }
 
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 20px #3b82f61a;
+  }
+
+  100% {
+    box-shadow: 0 0 30px #3b82f633;
+  }
+}
+
 .animate-fade-in {
-  animation: .3s ease-in-out fadeIn;
+  animation: .5s ease-out fadeIn;
 }
 
 .animate-slide-up {
-  animation: .3s ease-out slideUp;
+  animation: .6s ease-out slideUp;
 }
 
 .animate-scale-in {
-  animation: .2s ease-out scaleIn;
+  animation: .3s ease-out scaleIn;
+}
+
+.animate-float {
+  animation: 6s ease-in-out infinite float;
+}
+
+.animate-glow {
+  animation: 2s ease-in-out infinite alternate glow;
+}
+
+.bg-grid-white {
+  background-image: linear-gradient(#ffffff1a 1px, #0000 1px), linear-gradient(90deg, #ffffff1a 1px, #0000 1px);
+  background-size: 50px 50px;
+}
+
+.bg-grid-dark {
+  background-image: linear-gradient(#0000001a 1px, #0000 1px), linear-gradient(90deg, #0000001a 1px, #0000 1px);
+  background-size: 50px 50px;
 }
 
 /*# sourceMappingURL=app_globals_71f961d1.css.map*/

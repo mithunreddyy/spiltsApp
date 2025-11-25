@@ -1,134 +1,64 @@
-[00:00:01.112] Server  LOG      ✓ Ready in 1018ms
-[00:00:08.690] Server  ERROR    ⨯ ./app/globals.css
-Error evaluating Node.js code
-Error: Cannot find module '@tailwindcss/postcss'
-Require stack:
-- /Users/mithunreddy/Documents/mithun/spiltApp/.next/dev/build/chunks/[root-of-the-server]__6d51cb5d._.js
-- /Users/mithunreddy/Documents/mithun/spiltApp/.next/dev/build/chunks/[turbopack]_runtime.js
-- /Users/mithunreddy/Documents/mithun/spiltApp/.next/dev/build/postcss.js
-    [at Function._resolveFilename (node:internal/modules/cjs/loader:1383:15)]
-    [at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)]
-    [at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)]
-    [at Function._load (node:internal/modules/cjs/loader:1192:37)]
-    [at TracingChannel.traceSync (node:diagnostics_channel:322:14)]
-    [at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)]
-    [at Module.require (node:internal/modules/cjs/loader:1463:12)]
-    [at require (node:internal/modules/helpers:147:16)]
-    [at <anonymous> (turbopack:///[turbopack-node]/transforms/postcss.ts:49:25)]
-    [at <anonymous>]
-
-Import trace:
-  Client Component Browser:
-    ./app/globals.css [Client Component Browser]
-    ./app/layout.tsx [Server Component]
-
-
-[00:00:09.086] Browser ERROR   uncaughtError: Error: ./app/globals.css
-Error evaluating Node.js code
-Error: Cannot find module '@tailwindcss/postcss'
-Require stack:
-- /Users/mithunreddy/Documents/mithun/spiltApp/.next/dev/build/chunks/[root-of-the-server]__6d51cb5d._.js
-- /Users/mithunreddy/Documents/mithun/spiltApp/.next/dev/build/chunks/[turbopack]_runtime.js
-- /Users/mithunreddy/Documents/mithun/spiltApp/.next/dev/build/postcss.js
-    [at Function._resolveFilename (node:internal/modules/cjs/loader:1383:15)]
-    [at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)]
-    [at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)]
-    [at Function._load (node:internal/modules/cjs/loader:1192:37)]
-    [at TracingChannel.traceSync (node:diagnostics_channel:322:14)]
-    [at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)]
-    [at Module.require (node:internal/modules/cjs/loader:1463:12)]
-    [at require (node:internal/modules/helpers:147:16)]
-    [at <anonymous> (turbopack:///[turbopack-node]/transforms/postcss.ts:49:25)]
-    [at <anonymous>]
-
-Import trace:
-  Client Component Browser:
-    ./app/globals.css [Client Component Browser]
-    ./app/layout.tsx [Server Component]
-
-
-[00:00:09.231] Browser ERROR   ./app/globals.css
-Error evaluating Node.js code
-Error: Cannot find module '@tailwindcss/postcss'
-Require stack:
-- /Users/mithunreddy/Documents/mithun/spiltApp/.next/dev/build/chunks/[root-of-the-server]__6d51cb5d._.js
-- /Users/mithunreddy/Documents/mithun/spiltApp/.next/dev/build/chunks/[turbopack]_runtime.js
-- /Users/mithunreddy/Documents/mithun/spiltApp/.next/dev/build/postcss.js
-    [at Function._resolveFilename (node:internal/modules/cjs/loader:1383:15)]
-    [at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)]
-    [at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)]
-    [at Function._load (node:internal/modules/cjs/loader:1192:37)]
-    [at TracingChannel.traceSync (node:diagnostics_channel:322:14)]
-    [at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)]
-    [at Module.require (node:internal/modules/cjs/loader:1463:12)]
-    [at require (node:internal/modules/helpers:147:16)]
-    [at <anonymous> (turbopack:///[turbopack-node]/transforms/postcss.ts:49:25)]
-    [at <anonymous>]
-
-Import trace:
-  Client Component Browser:
-    ./app/globals.css [Client Component Browser]
-    ./app/layout.tsx [Server Component]
-[00:00:09.634] Browser ERROR   ./app/globals.css
-Error evaluating Node.js code
-Error: Cannot find module '@tailwindcss/postcss'
-Require stack:
-- /Users/mithunreddy/Documents/mithun/spiltApp/.next/dev/build/chunks/[root-of-the-server]__6d51cb5d._.js
-- /Users/mithunreddy/Documents/mithun/spiltApp/.next/dev/build/chunks/[turbopack]_runtime.js
-- /Users/mithunreddy/Documents/mithun/spiltApp/.next/dev/build/postcss.js
-    [at Function._resolveFilename (node:internal/modules/cjs/loader:1383:15)]
-    [at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)]
-    [at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)]
-    [at Function._load (node:internal/modules/cjs/loader:1192:37)]
-    [at TracingChannel.traceSync (node:diagnostics_channel:322:14)]
-    [at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)]
-    [at Module.require (node:internal/modules/cjs/loader:1463:12)]
-    [at require (node:internal/modules/helpers:147:16)]
-    [at <anonymous> (turbopack:///[turbopack-node]/transforms/postcss.ts:49:25)]
-    [at <anonymous>]
-
-Import trace:
-  Client Component Browser:
-    ./app/globals.css [Client Component Browser]
-    ./app/layout.tsx [Server Component]
-[00:01:53.199] Server  LOG      ✓ Compiled in 136ms
-[00:01:53.326] Server  WARN     ⚠ Unsupported metadata viewport is configured in metadata export in /. Please move it to viewport export instead.
+[00:00:00.410] Server  LOG      ✓ Ready in 255ms
+[00:00:01.005] Server  WARN     ⚠ Unsupported metadata viewport is configured in metadata export in /. Please move it to viewport export instead.
 Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
-[00:01:53.326] Server  WARN     ⚠ Unsupported metadata themeColor is configured in metadata export in /. Please move it to viewport export instead.
+[00:00:01.005] Server  WARN     ⚠ Unsupported metadata themeColor is configured in metadata export in /. Please move it to viewport export instead.
 Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
-[00:01:53.439] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:07.851] Server  WARN     ⚠ Unsupported metadata viewport is configured in metadata export in /. Please move it to viewport export instead.
+[00:00:01.106] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:06.017] Server  WARN     ⚠ Unsupported metadata viewport is configured in metadata export in /. Please move it to viewport export instead.
 Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
-[00:02:07.851] Server  WARN     ⚠ Unsupported metadata themeColor is configured in metadata export in /. Please move it to viewport export instead.
+[00:00:06.017] Server  WARN     ⚠ Unsupported metadata themeColor is configured in metadata export in /. Please move it to viewport export instead.
 Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
-[00:02:07.913] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:04:49.492] Server  LOG      ✓ Compiled in 13ms
-[00:04:50.451] Server  LOG      ✓ Compiled in 5ms
-[00:04:56.871] Server  LOG      ✓ Compiled in 8ms
-[00:04:56.977] Browser ERROR   ./components/GroupDetail.tsx:515:14
-Parsing ecmascript source code failed
-  513 |                   {cat}
-  514 |                 </option>
-> 515 |             </select>
-      |              ^^^^^^^^
-  516 |           </div>
-  517 |           <Input
-  518 |             label="Date"
-
-Unterminated regexp literal
-
-Import trace:
-  Client Component Browser:
-    ./components/GroupDetail.tsx [Client Component Browser]
-    ./components/MoneyTrackerApp.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-[00:04:59.399] Server  WARN     ⚠ Unsupported metadata viewport is configured in metadata export in /. Please move it to viewport export instead.
+[00:00:06.079] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:07.387] Server  WARN     ⚠ Unsupported metadata viewport is configured in metadata export in /. Please move it to viewport export instead.
 Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
-[00:04:59.399] Server  WARN     ⚠ Unsupported metadata themeColor is configured in metadata export in /. Please move it to viewport export instead.
+[00:00:07.387] Server  WARN     ⚠ Unsupported metadata themeColor is configured in metadata export in /. Please move it to viewport export instead.
 Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
-[00:05:08.465] Server  WARN     ⚠ Unsupported metadata viewport is configured in metadata export in /. Please move it to viewport export instead.
+[00:00:07.448] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:14.160] Server  WARN     ⚠ Unsupported metadata viewport is configured in metadata export in /. Please move it to viewport export instead.
 Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
-[00:05:08.465] Server  WARN     ⚠ Unsupported metadata themeColor is configured in metadata export in /. Please move it to viewport export instead.
+[00:04:14.160] Server  WARN     ⚠ Unsupported metadata themeColor is configured in metadata export in /. Please move it to viewport export instead.
 Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
-[00:05:08.567] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:14.268] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:15.846] Server  WARN     ⚠ Unsupported metadata viewport is configured in metadata export in /. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+[00:04:15.847] Server  WARN     ⚠ Unsupported metadata themeColor is configured in metadata export in /. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+[00:04:15.915] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:17.088] Server  WARN     ⚠ Unsupported metadata viewport is configured in metadata export in /. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+[00:04:17.088] Server  WARN     ⚠ Unsupported metadata themeColor is configured in metadata export in /. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+[00:04:17.160] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:18.291] Server  WARN     ⚠ Unsupported metadata viewport is configured in metadata export in /. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+[00:04:18.291] Server  WARN     ⚠ Unsupported metadata themeColor is configured in metadata export in /. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+[00:04:18.352] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:58.413] Server  LOG      ✓ Compiled in 2ms
+[00:05:19.751] Server  LOG      ✓ Compiled in 2ms
+[00:05:33.602] Server  LOG      ✓ Compiled in 2ms
+[00:05:46.583] Server  LOG      ✓ Compiled in 7ms
+[00:11:06.884] Server  LOG      ✓ Compiled in 28ms
+[00:11:09.769] Server  LOG      ✓ Compiled in 10ms
+[00:11:29.559] Server  LOG      ✓ Compiled in 7ms
+[00:11:37.667] Server  WARN     ⚠ Unsupported metadata viewport is configured in metadata export in /. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+[00:11:37.667] Server  WARN     ⚠ Unsupported metadata themeColor is configured in metadata export in /. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+[00:11:37.781] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:12:23.412] Server  LOG      ✓ Compiled in 16ms
+[00:12:23.820] Server  LOG      ✓ Compiled in 8ms
+[00:12:32.901] Server  WARN     ⚠ Unsupported metadata viewport is configured in metadata export in /. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+[00:12:32.901] Server  WARN     ⚠ Unsupported metadata themeColor is configured in metadata export in /. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+[00:12:32.971] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:14:50.722] Server  LOG      ✓ Compiled in 12ms
+[00:15:03.241] Server  LOG      ✓ Compiled in 8ms
+[00:15:21.321] Server  LOG      ✓ Compiled in 7ms
+[00:15:31.067] Server  LOG      ✓ Compiled in 6ms
+[00:15:57.797] Server  LOG      ✓ Compiled in 8ms
+[00:15:58.639] Server  LOG      ✓ Compiled in 5ms
+[00:16:07.110] Server  LOG      ✓ Compiled in 11ms
+[00:16:54.210] Server  LOG      ✓ Compiled in 3ms
+[00:17:18.016] Server  LOG      ✓ Compiled in 2ms

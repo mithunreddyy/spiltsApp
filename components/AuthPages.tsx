@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/context/AuthContext";
-import { DollarSign, Eye, EyeOff, LogIn, UserPlus } from "lucide-react";
+import { Eye, EyeOff, LogIn, Sparkles, UserPlus } from "lucide-react";
 import React, { useState } from "react";
 
 export const LoginPage: React.FC = () => {
@@ -32,50 +32,62 @@ export const LoginPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900/20 flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Animated Background */}
+      <div className="fixed inset-0 bg-grid-white dark:bg-grid-dark opacity-10" />
+      <div className="fixed top-1/4 left-1/4 w-64 h-64 bg-blue-200/20 dark:bg-blue-500/10 rounded-full blur-3xl animate-float" />
+      <div
+        className="fixed bottom-1/4 right-1/4 w-96 h-96 bg-purple-200/20 dark:bg-purple-500/10 rounded-full blur-3xl animate-float"
+        style={{ animationDelay: "2s" }}
+      />
+
+      <div className="w-full max-w-md relative z-10">
         {/* Logo/Brand */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-black dark:bg-white rounded-full mb-4">
-            <DollarSign className="w-8 h-8 text-white dark:text-black" />
+        <div className="text-center mb-8 animate-slide-up">
+          <div className="inline-flex items-center justify-center w-20 h-20 glass-card rounded-2xl mb-4 animate-glow">
+            <Sparkles className="w-10 h-10 text-blue-600 dark:text-blue-400" />
           </div>
-          <h1 className="text-3xl font-bold text-black dark:text-white mb-2">
+          <h1 className="text-4xl font-bold text-gradient bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 mb-3">
             Money Splits
           </h1>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-gray-600 dark:text-gray-300 text-lg">
             Track expenses with friends
           </p>
         </div>
 
         {/* Login Form */}
-        <div className="bg-white dark:bg-gray-900 border-2 border-black dark:border-white rounded-none p-8">
-          <h2 className="text-2xl font-bold text-black dark:text-white mb-6">
-            Sign In
+        <div className="glass-panel p-8 animate-scale-in">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
+            <LogIn className="w-6 h-6 text-blue-500" />
+            Welcome Back
           </h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">
+            Sign in to your account
+          </p>
 
           {error && (
-            <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border-2 border-red-500 text-red-700 dark:text-red-400 text-sm">
+            <div className="glass-card p-4 border border-red-500/20 bg-red-500/10 text-red-700 dark:text-red-400 text-sm rounded-xl mb-6 animate-shake">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-black dark:text-white mb-2">
-                Email
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                Email Address
               </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-white dark:bg-black border-2 border-black dark:border-white text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white"
+                className="glass-input w-full rounded-xl px-4 py-4 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                 placeholder="your@email.com"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-black dark:text-white mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                 Password
               </label>
               <div className="relative">
@@ -83,14 +95,14 @@ export const LoginPage: React.FC = () => {
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 bg-white dark:bg-black border-2 border-black dark:border-white text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white pr-12"
+                  className="glass-input w-full rounded-xl px-4 py-4 pr-12 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                   placeholder="••••••••"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors p-1"
                 >
                   {showPassword ? (
                     <EyeOff className="w-5 h-5" />
@@ -104,33 +116,30 @@ export const LoginPage: React.FC = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 bg-black dark:bg-white text-white dark:text-black font-medium hover:bg-gray-800 dark:hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+              className="glass-button-primary w-full py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100"
             >
               {isLoading ? (
-                "Signing in..."
+                <div className="flex items-center justify-center gap-2">
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Signing in...
+                </div>
               ) : (
-                <>
-                  <LogIn className="w-5 h-5" />
-                  Sign In
-                </>
+                "Sign In"
               )}
             </button>
           </form>
 
-          <div className="mt-6 text-center">
-            <button
-              onClick={() => setShowRegister(true)}
-              className="text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white"
-            >
+          <div className="mt-8 text-center">
+            <p className="text-gray-600 dark:text-gray-400">
               Don't have an account?{" "}
-              <span className="font-medium underline">Sign up</span>
-            </button>
+              <button
+                onClick={() => setShowRegister(true)}
+                className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold transition-colors duration-300 hover:underline"
+              >
+                Create account
+              </button>
+            </p>
           </div>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-8 text-center text-sm text-gray-500 dark:text-gray-500">
-          <p>© 2025 Money Splits. All rights reserved.</p>
         </div>
       </div>
     </div>
@@ -169,64 +178,76 @@ export const RegisterPage: React.FC<{ onBackToLogin: () => void }> = ({
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900/20 flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Animated Background */}
+      <div className="fixed inset-0 bg-grid-white dark:bg-grid-dark opacity-10" />
+      <div className="fixed top-1/4 left-1/4 w-64 h-64 bg-blue-200/20 dark:bg-blue-500/10 rounded-full blur-3xl animate-float" />
+      <div
+        className="fixed bottom-1/4 right-1/4 w-96 h-96 bg-purple-200/20 dark:bg-purple-500/10 rounded-full blur-3xl animate-float"
+        style={{ animationDelay: "2s" }}
+      />
+
+      <div className="w-full max-w-md relative z-10">
         {/* Logo/Brand */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-black dark:bg-white rounded-full mb-4">
-            <DollarSign className="w-8 h-8 text-white dark:text-black" />
+        <div className="text-center mb-8 animate-slide-up">
+          <div className="inline-flex items-center justify-center w-20 h-20 glass-card rounded-2xl mb-4 animate-glow">
+            <Sparkles className="w-10 h-10 text-blue-600 dark:text-blue-400" />
           </div>
-          <h1 className="text-3xl font-bold text-black dark:text-white mb-2">
+          <h1 className="text-4xl font-bold text-gradient bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 mb-3">
             Money Splits
           </h1>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-gray-600 dark:text-gray-300 text-lg">
             Create your account
           </p>
         </div>
 
         {/* Register Form */}
-        <div className="bg-white dark:bg-gray-900 border-2 border-black dark:border-white rounded-none p-8">
-          <h2 className="text-2xl font-bold text-black dark:text-white mb-6">
-            Sign Up
+        <div className="glass-panel p-8 animate-scale-in">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
+            <UserPlus className="w-6 h-6 text-green-500" />
+            Join Us
           </h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">
+            Create your account to get started
+          </p>
 
           {error && (
-            <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border-2 border-red-500 text-red-700 dark:text-red-400 text-sm">
+            <div className="glass-card p-4 border border-red-500/20 bg-red-500/10 text-red-700 dark:text-red-400 text-sm rounded-xl mb-6 animate-shake">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-black dark:text-white mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                 Full Name
               </label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-3 bg-white dark:bg-black border-2 border-black dark:border-white text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white"
+                className="glass-input w-full rounded-xl px-4 py-4 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                 placeholder="John Doe"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-black dark:text-white mb-2">
-                Email
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                Email Address
               </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-white dark:bg-black border-2 border-black dark:border-white text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white"
+                className="glass-input w-full rounded-xl px-4 py-4 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                 placeholder="your@email.com"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-black dark:text-white mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                 Password
               </label>
               <div className="relative">
@@ -234,7 +255,7 @@ export const RegisterPage: React.FC<{ onBackToLogin: () => void }> = ({
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 bg-white dark:bg-black border-2 border-black dark:border-white text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white pr-12"
+                  className="glass-input w-full rounded-xl px-4 py-4 pr-12 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                   placeholder="••••••••"
                   required
                   minLength={6}
@@ -242,7 +263,7 @@ export const RegisterPage: React.FC<{ onBackToLogin: () => void }> = ({
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors p-1"
                 >
                   {showPassword ? (
                     <EyeOff className="w-5 h-5" />
@@ -251,20 +272,20 @@ export const RegisterPage: React.FC<{ onBackToLogin: () => void }> = ({
                   )}
                 </button>
               </div>
-              <p className="mt-1 text-xs text-gray-500 dark:text-gray-500">
+              <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
                 Minimum 6 characters
               </p>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-black dark:text-white mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                 Confirm Password
               </label>
               <input
                 type={showPassword ? "text" : "password"}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-white dark:bg-black border-2 border-black dark:border-white text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white"
+                className="glass-input w-full rounded-xl px-4 py-4 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                 placeholder="••••••••"
                 required
               />
@@ -273,33 +294,30 @@ export const RegisterPage: React.FC<{ onBackToLogin: () => void }> = ({
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 bg-black dark:bg-white text-white dark:text-black font-medium hover:bg-gray-800 dark:hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+              className="glass-button-primary w-full py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100"
             >
               {isLoading ? (
-                "Creating account..."
+                <div className="flex items-center justify-center gap-2">
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Creating account...
+                </div>
               ) : (
-                <>
-                  <UserPlus className="w-5 h-5" />
-                  Sign Up
-                </>
+                "Create Account"
               )}
             </button>
           </form>
 
-          <div className="mt-6 text-center">
-            <button
-              onClick={onBackToLogin}
-              className="text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white"
-            >
+          <div className="mt-8 text-center">
+            <p className="text-gray-600 dark:text-gray-400">
               Already have an account?{" "}
-              <span className="font-medium underline">Sign in</span>
-            </button>
+              <button
+                onClick={onBackToLogin}
+                className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold transition-colors duration-300 hover:underline"
+              >
+                Sign in
+              </button>
+            </p>
           </div>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-8 text-center text-sm text-gray-500 dark:text-gray-500">
-          <p>© 2025 Money Splits. All rights reserved.</p>
         </div>
       </div>
     </div>
