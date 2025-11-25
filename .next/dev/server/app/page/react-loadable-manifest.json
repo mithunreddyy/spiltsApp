@@ -1,0 +1,10 @@
+{
+  "[project]/components/MoneyTrackerApp.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/components/MoneyTrackerApp.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/_a9231200._.js",
+      "static/chunks/node_modules_lucide-react_dist_esm_3869a7f0._.js",
+      "static/chunks/components_MoneyTrackerApp_tsx_9fc88aa6._.js"
+    ]
+  }
+}
